@@ -1,2 +1,2 @@
 # SIGS
-Sistema Integrador de Gestão de Startups
+Sistema Integrado de Gestão de Startups
