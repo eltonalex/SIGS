@@ -1,6 +1,6 @@
 {
-    "title": "SIGS",
-    "name": "Sistema Integrado de Gestão de Startups",
+    "title": "Sistema Integrado de Gestão de Startups",
+    "name": "SIGS",
     "version": "1.0.0",
     "scripts": {
         "start": "node_modules/.bin/gulp watch"
