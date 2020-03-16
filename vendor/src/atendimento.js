@@ -6,20 +6,8 @@ var atendente = document.getElementById('inputAtendente');
 var formaAtendimento = document.getElementById('inputFormaAtendimento');
 var situacao = document.getElementById('inputSituacao');
 var descricao = document.getElementById('inputDescricao');
-// const dadosTabela = [{
-//     'nome': 'Acacio',
-//     'atendente': 'Looh',
-//     'forma_atendimento': 'Ativo',
-//     'situacao': 'Em aberto',
-//     'descricao': 'Bla bla',
-// },
-// {
-//     'nome': 'Pefro',
-//     'atendente': 'Looh',
-//     'forma_atendimento': 'Receptivo',
-//     'situacao': 'Atendido',
-//     'descricao': 'Bla bla 2',
-// }]
+
+
 botao.addEventListener('click', cadastrarAtendimento);
 nome.value = localStorage['name']
 console.log(localStorage['name'])
@@ -39,7 +27,7 @@ async function cadastrarAtendimento() {
         "situacao": situacao.value,
         "descricao": descricao.value
     };
-    // evt.preventDefault();
+
     await axios.post('http://localhost:3339/newattendance/', request)
         .then(function (response) {
             console.log('salvo com sucesso', response)
@@ -50,7 +38,6 @@ async function cadastrarAtendimento() {
             situacao.value = -1;
             descricao.value = '';
         });
-    //console.log(response);
 }
 
 _populaTabela();
@@ -63,8 +50,6 @@ async function _populaTabela() {
             dadosTabela = response['data']['atendimento']
         });
 
-    // alert(JSON.stringify(dadosTabela))
-    // var table = document.createElement('table');
     var table = document.getElementById('tabela');
     var tableBody = document.createElement('tbody');
 
@@ -93,15 +78,6 @@ async function _populaTabela() {
         row.appendChild(descricao);
 
         tableBody.appendChild(row)
-
-        // rowData.forEach(function (cellData) {
-        //     var cell = document.createElement('td');
-        //     cell.appendChild(document.createTextNode(cellData));
-        //     row.appendChild(cell);
-        // });
-
-        // tableBody.appendChild(row)
     })
     table.appendChild(tableBody);
-    // document.body.appendChild(table);
 }
