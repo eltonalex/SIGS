@@ -6,21 +6,23 @@ var atendente = document.getElementById('inputAtendente');
 var formaAtendimento = document.getElementById('inputFormaAtendimento');
 var situacao = document.getElementById('inputSituacao');
 var descricao = document.getElementById('inputDescricao');
-const dadosTabela = [{
-    'nome': 'Acacio',
-    'atendente': 'Looh',
-    'forma_atendimento': 'Ativo',
-    'situacao': 'Em aberto',
-    'descricao': 'Bla bla',
-},
-{
-    'nome': 'Pefro',
-    'atendente': 'Looh',
-    'forma_atendimento': 'Receptivo',
-    'situacao': 'Atendido',
-    'descricao': 'Bla bla 2',
-}]
+// const dadosTabela = [{
+//     'nome': 'Acacio',
+//     'atendente': 'Looh',
+//     'forma_atendimento': 'Ativo',
+//     'situacao': 'Em aberto',
+//     'descricao': 'Bla bla',
+// },
+// {
+//     'nome': 'Pefro',
+//     'atendente': 'Looh',
+//     'forma_atendimento': 'Receptivo',
+//     'situacao': 'Atendido',
+//     'descricao': 'Bla bla 2',
+// }]
 botao.addEventListener('click', cadastrarAtendimento);
+nome.value = localStorage['name']
+console.log(localStorage['name'])
 
 async function cadastrarAtendimento() {
     console.log('nome: ', nome.value);
@@ -29,14 +31,38 @@ async function cadastrarAtendimento() {
     console.log('situacao: ', situacao.value);
     console.log('descricao: ', descricao.value);
 
+    let request = {
+        "idLogin": localStorage['_id'],
+        "nome": nome.value,
+        "atendente": atendente.value,
+        "formaAtendimento": formaAtendimento.value,
+        "situacao": situacao.value,
+        "descricao": descricao.value
+    };
     // evt.preventDefault();
-    const response = await axios.get('https://viacep.com.br/ws/07041030/json/');
+    await axios.post('http://localhost:3339/newattendance/', request)
+        .then(function (response) {
+            console.log('salvo com sucesso', response)
+            _populaTabela();
+            nome.value = '';
+            atendente.value = '';
+            formaAtendimento.value = -1;
+            situacao.value = -1;
+            descricao.value = '';
+        });
     //console.log(response);
 }
 
 _populaTabela();
 
-function _populaTabela() {
+async function _populaTabela() {
+    let dadosTabela = [{}]
+    await axios.get(`http://localhost:3339/newattendance/${localStorage['_id']}`)
+        .then(function (response) {
+            console.log('leu dados', response['data']['atendimento'])
+            dadosTabela = response['data']['atendimento']
+        });
+
     // alert(JSON.stringify(dadosTabela))
     // var table = document.createElement('table');
     var table = document.getElementById('tabela');
@@ -55,7 +81,7 @@ function _populaTabela() {
         row.appendChild(atendente);
 
         var forma_atendimento = document.createElement('td');
-        forma_atendimento.appendChild(document.createTextNode(rowData['forma_atendimento']));
+        forma_atendimento.appendChild(document.createTextNode(rowData['formaAtendimento']));
         row.appendChild(forma_atendimento);
 
         var situacao = document.createElement('td');
