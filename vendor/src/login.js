@@ -6,7 +6,7 @@ async function login() {
 
     var name = document.getElementById("inputName");
     console.info(name.value)
-    await axios.get(`http://localhost:3339/login/${name.value}`)
+    await axios.get(`https://sigsbackend.herokuapp.com/login/${name.value}`)
         .then(response => {
             console.log(response["data"]["user"][0]["_id"]);
             localStorage.setItem('_id', response["data"]["user"][0]["_id"]);
@@ -20,7 +20,7 @@ async function login() {
 }
 
 async function cadastrar_login() {
-    await axios.post('http://localhost:3339/login/', { name: document.getElementById("inputName") })
+    await axios.post('https://sigsbackend.herokuapp.com/login/', { name: document.getElementById("inputName") })
         .then(function (response) {
             console.log('login salvo com sucesso', response)
             console.log(response["data"]["user"][0]["_id"]);
