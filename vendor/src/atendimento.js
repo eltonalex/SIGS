@@ -28,7 +28,7 @@ async function cadastrarAtendimento() {
         "descricao": descricao.value
     };
 
-    await axios.post('http://localhost:3339/newattendance/', request)
+    await axios.post('https://sigsbackend.herokuapp.com/newattendance/', request)
         .then(function (response) {
             console.log('salvo com sucesso', response)
             _populaTabela();
@@ -44,7 +44,7 @@ _populaTabela();
 
 async function _populaTabela() {
     let dadosTabela = [{}]
-    await axios.get(`http://localhost:3339/newattendance/${localStorage['_id']}`)
+    await axios.get(`https://sigsbackend.herokuapp.com/newattendance/${localStorage['_id']}`)
         .then(function (response) {
             console.log('leu dados', response['data']['atendimento'])
             dadosTabela = response['data']['atendimento']
