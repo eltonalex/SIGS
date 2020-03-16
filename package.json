@@ -3,7 +3,8 @@
     "name": "SIGS",
     "version": "1.0.0",
     "scripts": {
-        "start": "node_modules/.bin/gulp watch"
+        "startgulp": "node_modules/.bin/gulp watch",
+        "start": "node vendor/src/index.js"
     },
     "description": "Este projeto utiliza o open source Bootstrap 4 admin theme e foi utilizado como modelo conceitual no desafio da Shawee Mega Hack Pocket.",
     "keywords": [
